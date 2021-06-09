@@ -1,5 +1,6 @@
 const defaultState = {
   loading: false,
+  error: false,
   userActive: undefined,
 };
 
@@ -19,6 +20,11 @@ const login = (state = defaultState, action) => {
       return {
         ...state,
         loading: action.isLoading,
+      };
+    case 'ERROR':
+      return {
+        ...state,
+        error: action.isError,
       };
     default:
       return state;

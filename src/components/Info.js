@@ -11,6 +11,7 @@ import {
   FlatList,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 const styles = StyleSheet.create({
   container: {
@@ -125,7 +126,7 @@ export class Info extends Component {
     const {srcEnergy} = this.state;
     return (
       <>
-        <SafeAreaView style={{paddingHorizontal: 10}}>
+        <View style={{paddingHorizontal: 10, flex: 1}}>
           <View>
             <Text style={styles.title}>{name}</Text>
           </View>
@@ -157,34 +158,26 @@ export class Info extends Component {
               <Text style={[styles.text, {fontWeight: 'bold', fontSize: 20}]}>
                 Attacks
               </Text>
+              {attacks.map((e, index) => (
+                <View key={index}>
+                  <View style={styles.containerHp}>
+                    <Text style={[styles.text, {fontWeight: 'bold'}]}>
+                      {e.name}
+                    </Text>
 
-              <FlatList
-                data={attacks}
-                keyExtractor={attacks => attacks.name}
-                showsVerticalScrollIndicator={false}
-                renderItem={({item: {name, damage, text}}) => {
-                  return (
-                    <>
-                      <View style={styles.containerHp}>
-                        <Text style={[styles.text, {fontWeight: 'bold'}]}>
-                          {name}
-                        </Text>
-
-                        <Text style={[styles.text, {fontWeight: 'bold'}]}>
-                          {damage}
-                        </Text>
-                      </View>
-                      {text ? (
-                        <View>
-                          <Text style={[styles.text, {fontStyle: 'italic'}]}>
-                            {text}
-                          </Text>
-                        </View>
-                      ) : null}
-                    </>
-                  );
-                }}
-              />
+                    <Text style={[styles.text, {fontWeight: 'bold'}]}>
+                      {e.damage}
+                    </Text>
+                  </View>
+                  {e.text ? (
+                    <View>
+                      <Text style={[styles.text, {fontStyle: 'italic'}]}>
+                        {e.text}
+                      </Text>
+                    </View>
+                  ) : null}
+                </View>
+              ))}
             </View>
           )}
           {weaknesses && (
@@ -192,23 +185,16 @@ export class Info extends Component {
               <Text style={[styles.text, {fontWeight: 'bold', fontSize: 20}]}>
                 Weaknesses
               </Text>
-              <FlatList
-                data={weaknesses}
-                keyExtractor={weaknesses => weaknesses.type}
-                showsVerticalScrollIndicator={false}
-                renderItem={({item: {type, value}}) => {
-                  return (
-                    <View style={styles.containerHp}>
-                      <Text style={[styles.text, {fontStyle: 'italic'}]}>
-                        {type}
-                      </Text>
-                      <Text style={[styles.text, {fontStyle: 'italic'}]}>
-                        {value}
-                      </Text>
-                    </View>
-                  );
-                }}
-              />
+              {weaknesses.map((e, index) => (
+                <View style={styles.containerHp} key={index}>
+                  <Text style={[styles.text, {fontStyle: 'italic'}]}>
+                    {e.type}
+                  </Text>
+                  <Text style={[styles.text, {fontStyle: 'italic'}]}>
+                    {e.value}
+                  </Text>
+                </View>
+              ))}
             </View>
           )}
           {retreatCost && (
@@ -228,7 +214,7 @@ export class Info extends Component {
               </View>
             </>
           )}
-        </SafeAreaView>
+        </View>
       </>
     );
   }

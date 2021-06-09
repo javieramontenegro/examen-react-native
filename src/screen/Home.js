@@ -8,12 +8,11 @@ import {
   FlatList,
   View,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import axios from 'axios';
+
 import SetCards from '../components/Set';
 import LinearGradient from 'react-native-linear-gradient';
 import Header from '../components/Header';
-import {connect} from 'react-redux';
+
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -89,7 +88,6 @@ const styles = StyleSheet.create({
   },
 });
 const Home = () => {
-  //console.log('islike', isLike);
   const [doneFetch, setDoneFetch] = useState();
 
   const [pokeInfo, setPokeInfo] = useState([]);

@@ -14,6 +14,7 @@ import {
 import {
   name as addProfileName,
   email as addProfileEmail,
+  phone as addProfilePhone,
   logout,
 } from '../redux/actions/index';
 import LinearGradient from 'react-native-linear-gradient';
@@ -77,57 +78,76 @@ const Profile = ({
   addName,
   addEmail,
   addPhoto,
+  addPhone,
   nameFunc,
   emailFunc,
+  phoneFunc,
   logout,
 }) => {
-  const [name, setName] = useState('');
+  /* const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [photo, setPhoto] = useState('');
+  const [photo, setPhoto] = useState(''); */
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View>
-          <LinearGradient colors={['#ff3c41', '#ff653c']} style={styles.button}>
-            <TouchableOpacity onPress={() => logout()}>
-              <Text style={styles.buttonText}>Log Out</Text>
-            </TouchableOpacity>
-          </LinearGradient>
-        </View>
-        <View
-          style={{width: '100%', height: '100%', padding: 10, marginTop: 10}}>
-          <Text style={styles.title}>Profile</Text>
+    <>
+      <SafeAreaView style={styles.container}>
+        <ScrollView>
           <View>
-            <AddPhoto addPhoto={addPhoto} />
+            <LinearGradient
+              colors={['#ff3c41', '#ff653c']}
+              style={styles.button}>
+              <TouchableOpacity onPress={() => logout()}>
+                <Text style={styles.buttonText}>Log Out</Text>
+              </TouchableOpacity>
+            </LinearGradient>
           </View>
-          <View>
-            <Text style={styles.inputText}>User</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="User"
-              autoCapitalize="none"
-              onChangeText={name => nameFunc(name)}
-              value={addName}
-            />
-            <Text style={styles.inputText}>Email</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              autoCapitalize="none"
-              onChangeText={email => emailFunc(email)}
-              value={addEmail}
-            />
+          <View
+            style={{width: '100%', height: '100%', padding: 10, marginTop: 10}}>
+            <Text style={styles.title}>Profile</Text>
+            <View>
+              <AddPhoto addPhoto={addPhoto} />
+            </View>
+            <View>
+              <Text style={styles.inputText}>User</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="User"
+                autoCapitalize="none"
+                autoCompleteType="name"
+                onChangeText={name => nameFunc(name)}
+                value={addName}
+              />
+              <Text style={styles.inputText}>Email</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                autoCapitalize="none"
+                autoCompleteType="email"
+                onChangeText={email => emailFunc(email)}
+                value={addEmail}
+              />
+              <Text style={styles.inputText}>Phone</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="phone"
+                autoCapitalize="none"
+                autoCompleteType="tel"
+                keyboardType="phone-pad"
+                onChangeText={phone => phoneFunc(phone)}
+                value={addPhone}
+              />
+            </View>
           </View>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
+    </>
   );
 };
 const mapDispatchToProps = dispatch => {
   return {
     nameFunc: name => dispatch(addProfileName({name})),
     emailFunc: email => dispatch(addProfileEmail({email})),
+    phoneFunc: phone => dispatch(addProfilePhone({phone})),
     logout: () => dispatch(logout()),
   };
 };
@@ -136,6 +156,7 @@ const mapStateToProps = globalState => {
     addName: globalState.profileReducer.name,
     addEmail: globalState.profileReducer.email,
     addPhoto: globalState.profileReducer.photo,
+    addPhone: globalState.profileReducer.phone,
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

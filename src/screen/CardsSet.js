@@ -15,6 +15,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Card from '../components/Card';
 import {useNavigation} from '@react-navigation/native';
 import Header from '../components/Header';
+import Loading from '../components/Loading';
 
 const styles = StyleSheet.create({
   container: {
@@ -156,11 +157,7 @@ const CardsSet = ({route}) => {
           </View>
         </SafeAreaView>
       ) : (
-        <LinearGradient
-          colors={['#438cf2', '#3ebbfe']}
-          style={{flex: 1, width: '100%', height: '100%'}}>
-          <Text>LOADING</Text>
-        </LinearGradient>
+        <Loading colorBack="white" />
       )}
     </>
   );

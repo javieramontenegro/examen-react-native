@@ -24,8 +24,7 @@ const styles = StyleSheet.create({
     height: '100%',
     flex: 1,
     alignContent: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 20,
+
     justifyContent: 'space-between',
     flexDirection: 'column',
   },
@@ -84,46 +83,9 @@ const CardInfo = ({route}) => {
     retreatCost,
   } = route.params;
   const navigations = useNavigation();
-  /* useEffect(() => getEnergy(types[0]), []);
-  const [srcEnergy, setSrcEnergy] = useState(null);
-  console.log('energy', srcEnergy);
-  const getEnergy = energy => {
-    if (energy === 'Grass') {
-      setSrcEnergy(require('../assets/e_grass.png'));
-    }
-    if (energy === 'Colorless') {
-      setSrcEnergy(require('../assets/e_normal.png'));
-    }
-    if (energy === 'Darkness') {
-      setSrcEnergy(require('../assets/e_darck.png'));
-    }
-    if (energy === 'Dragon') {
-      setSrcEnergy(require('../assets/e_dragon.png'));
-    }
-    if (energy === 'Fairy') {
-      setSrcEnergy(require('../assets/e_fairy.png'));
-    }
-    if (energy === 'Fighting') {
-      setSrcEnergy(require('../assets/e_figth.png'));
-    }
-    if (energy === 'Fire') {
-      setSrcEnergy(require('../assets/e_fire.png'));
-    }
-    if (energy === 'Lightning') {
-      setSrcEnergy(require('../assets/e_ligth.png'));
-    }
-    if (energy === 'Metal') {
-      setSrcEnergy(require('../assets/e_metal.png'));
-    }
-    if (energy === 'Psychic') {
-      setSrcEnergy(require('../assets/e_psy.png'));
-    }
-    if (energy === 'Water') {
-      setSrcEnergy(require('../assets/e_water.png'));
-    }
-  }; */
+
   return (
-    <SafeAreaView style={styles.containerLine}>
+    <SafeAreaView style={styles.container}>
       <ScrollView>
         <Info
           id={id}

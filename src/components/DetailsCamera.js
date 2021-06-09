@@ -17,61 +17,47 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     paddingHorizontal: 20,
   },
-  photoBoxContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  photoBoxCircle: {
-    width: 200,
-    height: 200,
-    borderWidth: 5,
-    borderColor: 'gray',
-    borderRadius: 200,
-  },
-  bottomButtons: {
+
+  takeButtons: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     paddingBottom: 10,
   },
-  captureButtonContainer: {
+  takeButtonContainer: {
     width: 70,
     height: 70,
-    borderColor: 'gray',
+    borderColor: 'red',
     borderWidth: 2,
     borderRadius: 40,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
   },
-  captureInnerButtonContainer: {
+  innerButton: {
     width: 60,
     height: 60,
     borderRadius: 30,
-    borderWidth: 2,
-    borderColor: 'gray',
-    backgroundColor: 'gray',
+    borderWidth: 1,
+    borderColor: 'red',
+    backgroundColor: 'red',
   },
 });
 
-const CameraInterface = ({navigation, camera, takePicture}) => (
+const DetailsCamera = ({navigation, camera, takePicture}) => (
   <SafeAreaView style={styles.container}>
-    <View style={styles.photoBoxContainer}>
-      <View style={styles.photoBoxCircle} />
-    </View>
-    <View style={styles.bottomButtons}>
+    <View style={styles.takeButtons}>
       <TouchableOpacity
-        style={styles.captureButtonContainer}
+        style={styles.takeButtonContainer}
         onPress={() => takePicture(camera)}>
-        <View style={styles.captureInnerButtonContainer} />
+        <View style={styles.innerButton} />
       </TouchableOpacity>
     </View>
   </SafeAreaView>
 );
 
-export default CameraInterface;
+export default DetailsCamera;

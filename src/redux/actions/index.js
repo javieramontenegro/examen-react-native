@@ -9,10 +9,20 @@ export const login = ({user, password}) => {
     });
 
     setTimeout(() => {
-      if (user !== '' && password !== '') {
+      if (user !== 'exo' || password !== 'power') {
+        dispatch({
+          type: 'ERROR',
+          isError: true,
+        });
+      }
+
+      if (user === 'exo' && password === 'power') {
         AsyncStorage.setItem('user', user);
         AsyncStorage.setItem('password', password);
-
+        dispatch({
+          type: 'ERROR',
+          isError: false,
+        });
         dispatch({
           type: 'LOGIN_IN',
         });
@@ -29,17 +39,6 @@ export const login = ({user, password}) => {
 export const logout = () => {
   return {
     type: 'LOGOUT',
-  };
-};
-
-export const like = like => {
-  console.log('like', like);
-
-  return dispatch => {
-    dispatch({
-      type: 'LIKE',
-      isLike: like,
-    });
   };
 };
 
@@ -92,5 +91,17 @@ export const photo = ({photo}) => {
     });
 
     AsyncStorage.setItem('photo', photo);
+  };
+};
+export const phone = ({phone}) => {
+  console.log('phone', {phone});
+  return dispatch => {
+    dispatch({
+      type: 'PHONE',
+
+      addPhone: phone,
+    });
+
+    AsyncStorage.setItem('phone', phone);
   };
 };

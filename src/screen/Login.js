@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
   Text,
   Image,
   TextInput,
+  StatusBar,
   View,
   Touchable,
   TouchableOpacity,
@@ -14,6 +15,7 @@ import {connect} from 'react-redux';
 import {login as loginAction} from '../redux/actions/index';
 import OverlaySpinner from 'react-native-loading-spinner-overlay';
 import {ScrollView} from 'react-native-gesture-handler';
+import Loading from '../components/Loading';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,11 +35,11 @@ const styles = StyleSheet.create({
   },
   back: {
     width: '100%',
-    height: '55%',
+    height: '60%',
     backgroundColor: 'white',
     borderTopRightRadius: 50,
     borderTopLeftRadius: 50,
-    padding: 40,
+    padding: 10,
   },
   title: {
     fontWeight: 'bold',
@@ -62,6 +64,9 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     color: '#7f7f7f',
   },
+  inputFocusBorderColor: {
+    borderColor: 'red',
+  },
   image: {
     width: 180,
     height: 180,
@@ -81,29 +86,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
-  containerLoading: {
-    position: 'absolute',
-    zIndex: 1,
-    width: '100%',
-    height: '100%',
-    flex: 1,
-    alignContent: 'center',
-    backgroundColor: 'black',
-    opacity: 0.8,
-    justifyContent: 'center',
-    flexDirection: 'column',
-  },
-  imageLoading: {
-    width: 180,
-    height: 180,
-    alignSelf: 'center',
-    resizeMode: 'contain',
-    zIndex: 2,
+  textError: {
+    fontSize: 12,
+    color: 'red',
   },
 });
-const Login = ({isLoadingActive, loginIn}) => {
+const Login = ({isLoadingActive, loginIn, isError}) => {
   const [name, setName] = useState('');
   const [pass, setPass] = useState('');
+  const [focusNameInput, setFocusNameInput] = useState(false);
+  const [focusPasswordInput, setFocusPasswordInput] = useState(false);
+  const passwordInputRef = useRef(null);
   //console.log('name:', name);
 
   const loginCallback = (user, password) => {
@@ -113,14 +106,7 @@ const Login = ({isLoadingActive, loginIn}) => {
   };
   return (
     <>
-      {isLoadingActive && (
-        <View style={styles.containerLoading}>
-          <Image
-            style={styles.imageLoading}
-            source={require('../assets/pokeball.png')}
-          />
-        </View>
-      )}
+      {isLoadingActive && <Loading colorBack="black" />}
       <SafeAreaView style={styles.container}>
         <ScrollView>
           <LinearGradient
@@ -128,6 +114,7 @@ const Login = ({isLoadingActive, loginIn}) => {
             style={styles.container}>
             <View style={styles.containerHead}>
               <Text style={styles.title}>Hello!</Text>
+
               <Image
                 style={styles.image}
                 source={require('../assets/pikachu.png')}
@@ -137,21 +124,40 @@ const Login = ({isLoadingActive, loginIn}) => {
               <Text style={styles.title}>Log In</Text>
               <Text style={styles.inputText}>User</Text>
               <TextInput
-                style={styles.input}
+                style={[
+                  styles.input,
+                  focusNameInput && styles.inputFocusBorderColor,
+                ]}
                 placeholder="User"
                 autoCapitalize="none"
                 onChangeText={name => setName(name)}
                 value={name}
+                onFocus={() => setFocusNameInput(true)}
+                onBlur={() => {
+                  setFocusNameInput(false);
+                  passwordInputRef.current.focus();
+                }}
               />
               <Text style={styles.inputText}>Password</Text>
               <TextInput
-                style={styles.input}
+                ref={passwordInputRef}
+                style={[
+                  styles.input,
+                  focusPasswordInput && styles.inputFocusBorderColor,
+                ]}
                 placeholder="Password"
                 autoCapitalize="none"
                 onChangeText={pass => setPass(pass)}
                 value={pass}
                 secureTextEntry={true}
+                onFocus={() => setFocusPasswordInput(true)}
+                onBlur={() => setFocusPasswordInput(false)}
               />
+              {isError && (
+                <Text style={styles.textError}>
+                  El usuario o contraseña no coinciden
+                </Text>
+              )}
               <LinearGradient
                 colors={['#ff3c41', '#ff653c']}
                 style={styles.button}>
@@ -175,6 +181,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = globalState => {
   return {
     isLoadingActive: globalState.loginInReducer.loading,
+    isError: globalState.loginInReducer.error,
     userActive: globalState.loginInReducer.userActive,
   };
 };

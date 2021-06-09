@@ -12,9 +12,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {connect} from 'react-redux';
-import {like as likeToggle} from '../redux/actions';
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#f2f9ff',
@@ -80,14 +78,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const Set = ({name, id, images, releaseDate, legalities, likeFunc, like}) => {
+const Set = ({name, id, images, releaseDate, legalities}) => {
   const navigation = useNavigation();
-  const [likePress, setLikePress] = useState(false);
+
   console.log('set', name);
-  const likeCallback = likes => {
-    setLikePress(!like);
-    likeFunc(!like);
-  };
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -98,9 +93,6 @@ const Set = ({name, id, images, releaseDate, legalities, likeFunc, like}) => {
             name: name,
           });
         }}>
-        <TouchableOpacity onPress={() => likeCallback()}>
-          <Icon name="heart" size={30} color={like ? 'red' : 'black'} />
-        </TouchableOpacity>
         <Image style={styles.image} source={{uri: images.logo}} />
 
         <View style={styles.constainerLogo}>
@@ -126,16 +118,5 @@ const Set = ({name, id, images, releaseDate, legalities, likeFunc, like}) => {
     </View>
   );
 };
-const mapDispatchToProps = dispatch => {
-  return {
-    likeFunc: like => dispatch(likeToggle(like)),
-  };
-};
 
-const mapStateToProps = globalState => {
-  return {
-    like: globalState.likeReducer.like,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Set);
+export default Set;
