@@ -1,5 +1,12 @@
-import React, {useState, useEffect} from 'react';
-import {SafeAreaView, StyleSheet, Text, FlatList, View} from 'react-native';
+import React, {useState, useEffect, useCallback} from 'react';
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  FlatList,
+  View,
+  TextInput,
+} from 'react-native';
 import axios from 'axios';
 import LinearGradient from 'react-native-linear-gradient';
 import Card from '../components/Card';
@@ -55,6 +62,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
+  input: {
+    width: '100%',
+    backgroundColor: '#f7f7f7',
+    borderRadius: 50,
+    borderColor: '#4d4e4f',
+    borderWidth: 2,
+    paddingHorizontal: 10,
+
+    marginTop: 5,
+  },
+
   containerLoading: {
     width: '100%',
     height: '100%',
@@ -67,6 +85,7 @@ const Cards = () => {
   const [doneFetch, setDoneFetch] = useState();
 
   const [pokeInfo, setPokeInfo] = useState([]);
+  const [filterPoke, setFilterPoke] = useState([]);
   const navigations = useNavigation();
   useEffect(() => getData(), []);
   const getData = async () => {
@@ -81,12 +100,27 @@ const Cards = () => {
       .then(data => {
         setDoneFetch(true);
         setPokeInfo(data.data);
+        setFilterPoke(data.data);
       })
       .catch(err => console.log(err));
     /* setDoneFetch(true);
 
     setPokeInfo(poke.data); */
   };
+  const filterCards = useCallback(
+    searchText => {
+      if (searchText) {
+        const result = pokeInfo.filter(({name}) =>
+          name.toLowerCase().includes(searchText),
+        );
+
+        setFilterPoke(result);
+      } else {
+        setFilterPoke(pokeInfo);
+      }
+    },
+    [pokeInfo],
+  );
   console.log('resCards', pokeInfo);
   return (
     <>
@@ -101,9 +135,15 @@ const Cards = () => {
               flexDirection: 'column',
             }}>
             <Header text={'Cards'} />
+            <TextInput
+              style={styles.input}
+              placeholder="Search for a Pokemon"
+              autoCapitalize="none"
+              onChangeText={filterCards}
+            />
             <View>
               <FlatList
-                data={pokeInfo}
+                data={filterPoke}
                 keyExtractor={({id}) => id}
                 showsVerticalScrollIndicator={false}
                 renderItem={({
