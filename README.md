@@ -4,21 +4,21 @@ Es una app que muestra las cartas que contiene un set en especifcio o todas las 
 
 ## Api
 
-Se utilizó la api de [pokemon cartas]('https://pokemontcg.io/').
+Se utilizó la api de [pokemon cartas](https://pokemontcg.io/).
 
 ## Screens
 
 - Home
 
-[![N|Screen1](https://i.ibb.co/zRK191y/app-01.gif)]()
+![home](https://i.ibb.co/zRK191y/app-01.gif)
 
 - Filtro
 
-[![N|Screen2](https://i.ibb.co/yf01qZK/app-2.gif)]()
+![filter](https://i.ibb.co/yf01qZK/app-2.gif)
 
 - Camara
 
-[![N|Screen2](https://i.ibb.co/xzVDgbJ/app-3.gif)]()
+![camara](https://i.ibb.co/xzVDgbJ/app-3.gif)
 
 ## Login info
 
