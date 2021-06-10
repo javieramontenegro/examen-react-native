@@ -10,7 +10,7 @@ Se utilizó la api de [pokemon cartas](https://pokemontcg.io/).
 
 - Home
 
-![home](https://i.ibb.co/zRK191y/app-01.gif)
+![home](https://media.giphy.com/media/IGsAhuHh8nrKwpUfbX/giphy.gif)
 
 - Filtro
 
