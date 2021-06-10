@@ -14,11 +14,11 @@ Se utilizó la api de [pokemon cartas](https://pokemontcg.io/).
 
 - Filtro
 
-![filter](https://i.ibb.co/yf01qZK/app-2.gif)
+![filter](https://media.giphy.com/media/VlSQoVY3fOt60EqbP8/giphy.gif)
 
 - Camara
 
-![camara](https://i.ibb.co/xzVDgbJ/app-3.gif)
+![camara](https://media.giphy.com/media/vtMkqu5VQsE6kUrLAH/giphy.gif)
 
 ## Login info
 
